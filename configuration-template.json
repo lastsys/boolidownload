@@ -1,0 +1,14 @@
+{
+  "user": "ENTER_USER_HERE",
+  "token": "ENTER_TOKEN_HERE",
+
+  "url": "https://api.booli.se/sold",
+
+  "pageSize": 500,
+  "outputPath": "responses",
+
+  "userAgent": "BooliDownloader/1.0",
+  "referrer": "localhost",
+
+  "csvSeparator": ";"
+}
