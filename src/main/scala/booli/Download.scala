@@ -233,7 +233,9 @@ object Download {
       new OutputStreamWriter(
         new FileOutputStream("output.csv"), "UTF-8"))
 
-    files.zipWithIndex.foreach { case (f, idx) ⇒
+    var firstRow = true
+
+    files.foreach { f ⇒
       println(s"Converting ${f.getName}")
       val source = Source.fromFile(f)
       val text = try source.mkString finally source.close()
@@ -241,8 +243,9 @@ object Download {
         case JsSuccess(p: Page, _) ⇒
           p.sold.foreach { s ⇒
             val row = buildRow(s)
-            if (idx == 0) {
+            if (firstRow) {
               bw.write(row.keys.mkString(configuration.csvSeparator) + "\n")
+              firstRow = false
             }
             bw.write(row.values.mkString(configuration.csvSeparator) + "\n")
           }
