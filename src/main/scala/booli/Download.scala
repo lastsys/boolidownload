@@ -258,12 +258,15 @@ object Download {
 
   def buildRow(sold: Sold): ListMap[String, String] = {
     implicit def convert[T](v: T): String = v.toString
-    implicit def convertOpt[T](v: Option[T]): String = v match { case Some(w: T) ⇒ w.toString; case None ⇒ "" }
+    implicit def convertOpt[T](v: Option[T]): String = v match { case Some(w) ⇒ w.toString; case None ⇒ "" }
 
     ListMap[String, String](
       "id" → sold.booliId,
       "address" → sold.location.address.streetAddress,
-      "distanceToOcean" → sold.location.distance,
+      "distanceToOcean" → (sold.location.distance match {
+        case Some(d) ⇒ d.ocean.toString
+        case None ⇒ ""
+      }),
       "latitude" → sold.location.position.latitude,
       "longitude" → sold.location.position.longitude,
       "approximateLocation" → sold.location.position.isApproximate,
