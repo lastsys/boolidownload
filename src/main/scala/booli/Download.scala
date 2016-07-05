@@ -121,7 +121,7 @@ object Download {
 
     createOutputPath()
 
-    //download()
+    download()
     jsonToCsv()
   }
 
